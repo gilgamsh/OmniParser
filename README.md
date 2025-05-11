@@ -38,6 +38,8 @@ Ensure you have the V2 weights downloaded in weights folder (ensure caption weig
    # download the model checkpoints to local directory OmniParser/weights/
    for f in icon_detect/{train_args.yaml,model.pt,model.yaml} icon_caption/{config.json,generation_config.json,model.safetensors}; do huggingface-cli download microsoft/OmniParser-v2.0 "$f" --local-dir weights; done
    mv weights/icon_caption weights/icon_caption_florence
+
+   $files = @("icon_detect/train_args.yaml", "icon_detect/model.pt", "icon_detect/model.yaml", "icon_caption/config.json", "icon_caption/generation_config.json", "icon_caption/model.safetensors"); if (!(Test-Path "weights")) { New-Item -ItemType Directory -Path "weights" | Out-Null }; foreach ($f in $files) { huggingface-cli download microsoft/OmniParser-v2.0 $f --local-dir "weights" }; Rename-Item -Path "weights/icon_caption" -NewName "icon_caption_florence"
 ```
 
 <!-- ## [deprecated]
